@@ -37,7 +37,7 @@ const getproductcontroller = async (req, res) => {
         else if (req.path.includes("/random")) {
             products = await ProductCollection.aggregate([
                 {
-                    $sample: {
+                    $sample: {                                  //9 random products lane ke lia
                         size: 9
                     }
                 }
