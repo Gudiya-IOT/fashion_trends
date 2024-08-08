@@ -5,18 +5,28 @@ const morgan = require("morgan");
 
 const PORT = process.env.PORT || 6000 || 8080;   //or ports; vese toh not work
 
-const app = express();
-
 const connectDB = require("./config/db")
-connectDB()                                         //connectDb called
+connectDB();                                //connectDb called; asynchronous func so baad me run eventhough phle write
+
+const app = express();                      // express called; synchronous func
 
 
-app.get("/",(req,res)=>{
-    res.send("api is working");
-});
+/////////////////////////////////////////////////////     //5/8/24
+// app.get("/",(req,res)=>{                  //root route
+//     res.send("api is working");
+// });
 
+// const rootroute = require("./routes/rootroute");
+// app.use("/fashiontrends",rootroute);              //"/fashiontrends"=base-url
+//////////////////////////////////////////////////
+
+                                               //6/8/24
 const rootroute = require("./routes/rootroute");
-app.use("/fashiontrends",rootroute);
+app.use("/",rootroute);
+
+const productroute = require("./routes/productroute");
+app.use("/fashiontrends",productroute);
+
 
 app.listen(PORT,()=>{
     console.log(`Server is running on http://localhost:${PORT}`.bgBlue.white);
